@@ -1,0 +1,55 @@
+<div class="full-bleed settings" ng-controller="AdvancedSettingsController">
+    <div class="settings-wrapper">
+        <div class="collection-section">
+            <p class="sub-header">Color Settings</p>
+            <ul class="collection ">
+                <li class="collection-item">
+                    <div class="left-item" style="width: 40%">
+                        Text Color
+                    </div>
+                    <div class="right-item" style="width: 60%">
+                        <input type="text" id="text_color_input" class="jscolor settings-inline-input" value="ff0000" data-jscolor="{backgroundColor:'white'}" readonly=""></input>
+                    </div>
+                </li>
+                <li class="collection-item">
+                    <div class="left-item" style="width: 40%">
+                        Background Color
+                    </div>
+                    <div class="right-item" style="width: 60%">
+                        <input type="text" id="background_color_input" class="jscolor settings-inline-input" value="ff0000" data-jscolor="{backgroundColor:'white'}" readonly=""></input>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collection-section">
+            <p class="sub-header">Word Configuration</p>
+            <ul class="collection ">
+                <li class="collection-item" ng-click="minWordLength()">
+                    <div class="left-item">
+                        Minimum Word Length
+                    </div>
+                    <div class="right-item" id="min_word_length">3</div>
+                </li>
+                <li class="collection-item" ng-click="translatedSequences()">
+                    <div class="left-item">
+                        Translated Sequences
+                    </div>
+                    <div class="right-item">
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collection-section">
+            <p class="sub-header">Other Settings</p>
+            <div class="collection ">
+                <a ui-sref='app.user-defined-translations' class="collection-item"> User Defined Translations </a>
+                <a ui-sref='app.playback-settings' class="collection-item"> Playback Settings </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src='scripts/jscolor.min.js'></script>

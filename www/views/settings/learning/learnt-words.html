@@ -1,0 +1,18 @@
+<div class="full-bleed settings" ng-controller="LearntWordsController">
+    <div class="settings-wrapper">
+        <div class="collection">
+            <a class="collection-item" ng-repeat="learnt_word in learnt_words">
+                <div class="left-item">
+                    {{ learnt_word }}
+                </div>
+                <div class="right-item">
+                    <i class="material-icons" ng-click="delete($event)">delete</i>
+                </div>
+            </a>
+
+        </div>
+        <div class="add-btn-wrapper">
+            <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+</div>
