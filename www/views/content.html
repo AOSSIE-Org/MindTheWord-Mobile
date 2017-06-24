@@ -1,70 +1,70 @@
 <div class="row container full-bleed" ng-controller="HomeController">
-	<div class="search-field-wrapper col s12 ">
-		<div class="input-field col s12 no-material">
-			 <input placeholder="Enter Url" id="url" type="text" ng-model="url">
-		</div>
-		<div class="input-field">
-			<a class="waves-effect waves-light btn search-btn" ng-click="openUrl()">Search</a>
-		</div>
-	</div>
+    <div class="search-field-wrapper col s12 ">
+        <div class="input-field col s12 no-material">
+            <input placeholder="Enter Url" id="url" type="text" ng-model="url">
+        </div>
+        <div class="input-field">
+            <a class="waves-effect waves-light btn search-btn" ng-click="openUrl()">Search</a>
+        </div>
+    </div>
 
-	<div class="patterns-wrapper">
-		<div class="head bar">
-			<p>Patterns</p>
-			<div class="selector">
-				<select name="pattern">
+    <div class="patterns-wrapper">
+        <div class="head bar">
+            <p>Patterns</p>
+            <div class="selector">
+                <select name="pattern">
 					<option value="Yandex">Yandex</option>
 					<option value="Bing">Bing</option>
 					<option value="Google">Google</option>
 				</select>
-			</div>
-		</div>
-		<div class="pattern-list-wrapper">
-			<div class="pattern-list collection">
-				<a class="pattern-item collection-item"><span class="percentage">80 %</span> of <span class="language1">English</span> to <span class="language2">Spanish</span></a>
-				<a class="pattern-item collection-item"><span class="percentage">65 %</span> of <span class="language1">French</span> to <span class="language2">Hindi</span></a>
-				<a class="pattern-item collection-item"><span class="percentage">75 %</span> of <span class="language1">Japanese</span> to <span class="language2">English</span></a>
-			</div>
-			<!-- <a class="btn-floating btn-large waves-effect waves-light halfway-fab pull-menu up " ng-click="toggleMenu($event)"><i class="material-icons">expand_more</i></a> -->
-		</div>
-		<div class="bottom bar visible">
-			<div class="selector-wrapper row">
-			<div class="selector col l4 s12">
-				<p class="selector-label">Percentage</p>
-				<select name="percentage">
+            </div>
+        </div>
+        <div class="pattern-list-wrapper">
+            <div class="pattern-list collection">
+                <a class="pattern-item collection-item"><span class="percentage">80 %</span> of <span class="language1">English</span> to <span class="language2">Spanish</span></a>
+                <a class="pattern-item collection-item"><span class="percentage">65 %</span> of <span class="language1">French</span> to <span class="language2">Hindi</span></a>
+                <a class="pattern-item collection-item"><span class="percentage">75 %</span> of <span class="language1">Japanese</span> to <span class="language2">English</span></a>
+            </div>
+            <!-- <a class="btn-floating btn-large waves-effect waves-light halfway-fab pull-menu up " ng-click="toggleMenu($event)"><i class="material-icons">expand_more</i></a> -->
+        </div>
+        <div class="bottom bar visible">
+            <div class="selector-wrapper row">
+                <div class="selector col l4 s12">
+                    <p class="selector-label">Percentage</p>
+                    <select name="percentage">
 					<option value="10%">10%</option>
 					<option value="20%">20%</option>
 					<option value="30%">30%</option>
 				</select>
-			</div>
-			<div class="selector col l4 s12">
-				<p class="selector-label">Language A</p>
-				<select name="language1">
+                </div>
+                <div class="selector col l4 s12">
+                    <p class="selector-label">Language A</p>
+                    <select name="language1">
 					<option value="English">English</option>
 					<option value="Chinese">Chinese</option>
 					<option value="French">French</option>
 				</select>
-			</div>
-			<div class="selector col l4 s12">
-				<p class="selector-label">Language B</p>
-				<select name="language2">
+                </div>
+                <div class="selector col l4 s12">
+                    <p class="selector-label">Language B</p>
+                    <select name="language2">
 					<option value="Spanish">Spanish</option>
 					<option value="Japanese">Japanese</option>
 					<option value="Hindi">Hindi</option>
 				</select>
-			</div>
-			</div>
-			<div class="create-btn-wrapper">
-			<a class="waves-effect waves-light btn create-btn white" ng-click="createPattern()">Create</a>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+            <div class="create-btn-wrapper">
+                <a class="waves-effect waves-light btn create-btn white" ng-click="createPattern()">Create</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script type="text/javascript">
-	$(document).ready(function(){
-      $('select').material_select();
+    $(document).ready(function() {
+        $('select').material_select();
 
-	})
+    })
 </script>
