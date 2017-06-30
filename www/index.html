@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mtwApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge ws: 'unsafe-inline' ">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="styles/materialize.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <script src="assets/js/jquery.min.js"></script> -->
+    <!-- <script src="assets/js/materialize.min.js"></script> -->
+
+    <title>Mind The Word</title>
+</head>
+
+<body ng-controller="OptionCtrl as opctrl" ng-app="mtwApp">
+    <div ui-view="header"></div>
+    <div ui-view="content"></div>
+    <div ui-view="modal"></div>
+    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-ui-router.min.js"></script>
+    <script src="assets/js/angular-resource.min.js"></script>
+    <script src="assets/js/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+    <!-- <script type="text/javascript" src="js/index.js"></script> -->
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/options.js"></script>
+    <!-- <script src="scripts/services.js"></script> -->
+    <script src="scripts/controllers.js"></script>
+    <!-- <script src="scripts/custom.js"></script> -->
+</body>
+
+</html>

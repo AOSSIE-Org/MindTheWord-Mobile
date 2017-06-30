@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.aossie.mtw" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Mind The Word</name>
+    <description>
+        A simple app helps people learn new languages while they browse the web.
+    </description>
+    <author email="bruno.wp@gmail.com" href="https://gitlab.com/aossie/MindTheWord">
+        Bruno Woltzenlogel Paleo
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <platform name="android">
+        <icon density="ldpi" src="res/ldpi.png" />
+        <icon density="mdpi" src="res/mdpi.png" />
+        <icon density="hdpi" src="res/hdpi.png" />
+        <icon density="xhdpi" src="res/xhdpi.png" />
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <exclude-files pattern="scripts/controllers/*.js" />
+    <exclude-files pattern="scripts/filters/*.js" />
+    <exclude-files pattern="scripts/utils/*.js" />
+    <exclude-files pattern="scripts/services/*.js" />
+    <exclude-files pattern="assets/js/jquery.min.js" />
+    <plugin name="cordova-plugin-browsersync" spec="git+https://github.com/nparashuram/cordova-plugin-browsersync.git" />
+    <plugin name="cordova-plugin-camera" spec="~2.4.1" />
+    <plugin name="cordova-plugin-device" spec="^1.1.6" />
+    <plugin name="cordova-plugin-exclude-files" spec="^0.2.2" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+</widget>
