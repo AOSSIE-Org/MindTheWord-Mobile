@@ -66,25 +66,29 @@ angular.module('mtwApp')
             //    // error
             //  });
 
-            if(!$scope.url.startsWith('http'))
-              $scope.url='http://'+$scope.url;
+            if (!$scope.url.startsWith('http'))
+                $scope.url = 'http://' + $scope.url;
             var ref = cordova.InAppBrowser.open($scope.url, '_blank', 'location=yes');
             ref.addEventListener('loadstop', loadStopCallBack);
 
 
-            function loadStopCallBack(){
-              ref.insertCSS({ code: "body{background:red;}" });
-              $.ajax({
-                  type: "GET",
-                  url: "scripts/mtw.js",
-                  dataType: "text",   
-                  success: function (msg) {
-                      ref.executeScript({code: msg});
-                  },
-                  error: function () {
-                     alert("Script Load Error");
-                 }
-              });
+            function loadStopCallBack() {
+                ref.insertCSS({
+                    code: "body{background:red;}"
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "scripts/mtw.js",
+                    dataType: "text",
+                    success: function(msg) {
+                        ref.executeScript({
+                            code: msg
+                        });
+                    },
+                    error: function() {
+                        alert("Script Load Error");
+                    }
+                });
 
             }
 
@@ -100,11 +104,11 @@ angular.module('mtwApp')
     }])
     .controller('TranslationSettingsController', ['$rootScope', '$scope', '$state', '$location', function($rootScope, $scope, $state, $location) {
         $rootScope.title = 'Translation';
-
+        console.log($rootScope.opctrl.yandexTranslatorApiKey);
         var keys = {
-            'Yandex': '<input placeholder="Key" id="key" type="text" autofocus>',
-            'Bing': '<input placeholder="Client ID" id="client_id" type="text" autofocus><input placeholder="Client Secret" id="client_secret" type="text">',
-            'Google': '<input placeholder="Key" id="key" type="text" autofocus>'
+            'Yandex': '<input placeholder="Key" id="key" value="' + $rootScope.opctrl.yandexTranslatorApiKey + '" type="text" autofocus>',
+            'Bing': '<input placeholder="Client ID" id="client_id" value="' + $rootScope.opctrl.bingTranslatorApiKey.clientId + '" type="text" autofocus><input placeholder="Client Secret" id="client_secret" value="' + $rootScope.opctrl.bingTranslatorApiKey.clientSecret + '" type="text">',
+            'Google': '<input placeholder="Key" id="key" value="' + $rootScope.opctrl.googleTranslatorApiKey + '" type="text" autofocus>'
         };
 
         var selectedKey = ''; // initialize
@@ -127,23 +131,26 @@ angular.module('mtwApp')
             selectedKey = $rootScope.modal_header;
             if (selectedKey == 'Yandex') {
                 var key = $('input#key').val();
-                console.log(key);
+                $rootScope.opctrl.yandexTranslatorApiKey = key;
+                $rootScope.opctrl.changeApiKey('Yandex');
                 // send to DB
             } else if (selectedKey == 'Bing') {
                 var client_id = $('input#client_id').val();
                 var client_secret = $('input#client_secret').val();
-                console.log(client_id, client_secret);
+                $rootScope.opctrl.bingTranslatorApiKey.clientId = client_id;
+                $rootScope.opctrl.bingTranslatorApiKey.clientSecret = client_secret;
+                $rootScope.opctrl.changeApiKey('Bing');
                 // send to DB
 
             } else if (selectedKey == 'Google') {
                 var key = $('input#key').val();
-                console.log(key);
+                $rootScope.opctrl.googleTranslatorApiKey = key;
+                $rootScope.opctrl.changeApiKey('Google')
                 // send to DB
 
             }
-            console.log($selectedSwitch);
             $selectedSwitch.find('input[type="checkbox"]').prop('checked', true);
-            $('#modal1').modal('close');
+            $('.modal').modal('close');
         }
         // console.log($state,$location.$$path);
     }])
@@ -160,11 +167,11 @@ angular.module('mtwApp')
                 $('#modal2 .modal-data').html('<div class="input-field col s6">\
                     <div class="input-section">\
                     <p>Maximum Word Toggles</p>\
-                    <input id="maximum_word_toggles_input" type="number" value="20" autofocus>\
+                    <input id="maximum_word_toggles_input" type="number" value="' + $rootScope.opctrl.wordToggles + '" autofocus>\
                     </div>\
                     <div class="input-section">\
                     <p>Maximum Activation Toggles</p>\
-                    <input id="maximum_activation_toggles_input" type="number" value="3" >\
+                    <input id="maximum_activation_toggles_input" type="number" value="' + $rootScope.opctrl.activationToggles + '" >\
                     </div>\
                     </div>');
                 $('#modal2').modal('open');
@@ -177,14 +184,21 @@ angular.module('mtwApp')
         $rootScope.confirm = function() {
             var maximum_word_toggles = $('input#maximum_word_toggles_input').val();
             var maximum_activation_toggles = $('input#maximum_activation_toggles_input').val();
-            console.log(maximum_word_toggles,maximum_activation_toggles);
-                // send to DB
-            console.log($selectedSwitch);
+            if ($rootScope.opctrl.wordToggles != maximum_word_toggles) {
+                console.log($rootScope.opctrl.wordToggles, maximum_word_toggles);
+                $rootScope.opctrl.wordToggles = maximum_word_toggles;
+                $rootScope.opctrl.updateWordToggles();
+            };
+            if ($rootScope.opctrl.activationToggles != maximum_activation_toggles) {
+                console.log($rootScope.opctrl.activationToggles, maximum_activation_toggles);
+                $rootScope.opctrl.activationToggles = maximum_activation_toggles;
+                $rootScope.opctrl.updateActivationToggles();
+            };
             $selectedSwitch.find('input[type="checkbox"]').prop('checked', true);
-            $('#modal2').modal('close');
+            $('.modal').modal('close');
         }
 
-        
+
         // console.log($state,$location.$$path);
     }])
     .controller('BlacklistWebsiteController', ['$rootScope', '$scope', '$state', '$location', function($rootScope, $scope, $state, $location) {
@@ -242,22 +256,6 @@ angular.module('mtwApp')
 
         $rootScope.redirect_url = 'app.learning';
 
-        $scope.saved_translations = [{
-                original: 'this',
-                translated: 'this'
-            },
-            {
-                original: 'that',
-                translated: 'that'
-            }
-        ];
-
-        $scope.delete = function($event) {
-            var $element = $($event.target).closest('.collection-item');
-            // send to DB
-            $element.remove();
-        }
-
         $scope.add = function() {
             $rootScope.modal_header = 'New Saved Translation';
             $('.modal-data').html('<div class="input-field col s6">\
@@ -271,11 +269,11 @@ angular.module('mtwApp')
         $rootScope.submit = function() {
             var new_saved_translation_original = $('#new_saved_translation_original').val();
             var new_saved_translation_translated = $('#new_saved_translation_translated').val();
-            $scope.saved_translations.push({
-                original: new_saved_translation_original,
-                translated: new_saved_translation_translated
-            });
-            $('#modal1').modal('close');
+            $rootScope.opctrl.original = new_saved_translation_original;
+            $rootScope.opctrl.translated = new_saved_translation_translated;
+            $rootScope.opctrl.saveTranslation();
+
+            $('.modal').modal('close');
         }
         // console.log($state,$location.$$path);
     }])
@@ -285,20 +283,13 @@ angular.module('mtwApp')
         $rootScope.redirect_url = 'app.learning';
 
 
-        $scope.delete = function($event) {
-            var $element = $($event.target).closest('.collection-item');
-            // send to DB
-            $element.remove();
-        }
-
         $scope.add = function() {
             $rootScope.modal_header = 'New Difficulty Bucket Word';
             $('.modal-data').html('<div class="input-field col s6">\
               <input placeholder="Word" id="new_difficulty_bucket_word" type="text" autofocus>\
-              <select id="new_difficulty_bucket_level">\
-                <option value="" disabled selected>Level</option>\
-                <option value="Easy">Easy</option>\
-                <option value="Medium">Medium</option>\
+              <select id="new_difficulty_bucket_level" class="browser-default">\
+                <option value="Easy" selected>Easy</option>\
+                <option value="Normal">Normal</option>\
                 <option value="Hard">Hard</option>\
               </select>\
             </div>');
@@ -311,12 +302,10 @@ angular.module('mtwApp')
         $rootScope.submit = function() {
             var new_difficulty_bucket_word = $('#new_difficulty_bucket_word').val();
             var new_difficulty_bucket_level = $('#new_difficulty_bucket_level').val();
-            $scope.difficulty_bucket_words.push({
-                word: new_difficulty_bucket_word,
-                level: new_difficulty_bucket_level
-            });
-
-            $('#modal1').modal('close');
+            $rootScope.opctrl.newDifficultyBucketWord = new_difficulty_bucket_word;
+            $rootScope.opctrl.newDifficultyBucketWordLevel = new_difficulty_bucket_level;
+            $rootScope.opctrl.addWordToDifficultyBucket();
+            $('.modal').modal('close');
         }
         // console.log($state,$location.$$path);
     }])
@@ -326,11 +315,6 @@ angular.module('mtwApp')
         $rootScope.redirect_url = 'app.learning';
 
 
-        $scope.delete = function($event) {
-            var $element = $($event.target).closest('.collection-item');
-            // send to DB
-            $element.remove();
-        }
 
         $scope.add = function() {
             $rootScope.modal_header = 'New Learnt Word';
@@ -343,56 +327,77 @@ angular.module('mtwApp')
 
         $rootScope.submit = function() {
             var new_learnt_word = $('#new_learnt_word').val();
-            $scope.learnt_words.push(new_learnt_word);
+            $rootScope.opctrl.newLearntWord = new_learnt_word;
+            $rootScope.opctrl.addLearntWord();
 
-            $('#modal1').modal('close');
+            $('.modal').modal('close');
         }
         // console.log($state,$location.$$path);
     }])
     .controller('AdvancedSettingsController', ['$rootScope', '$scope', '$state', '$location', function($rootScope, $scope, $state, $location) {
         $rootScope.title = 'Advanced';
 
+
+        $scope.initJSColor = function() {
+            var text_picker = new jscolor(document.getElementById('text_color_input'));
+            var background_picker = new jscolor(document.getElementById('background_color_input'));
+
+        }
+
+
+        $scope.update = function(js) {
+            console.log(js);
+        }
+
+        $scope.initJSColor();
+
         $scope.minWordLength = function() {
             $rootScope.modal_header = 'Minimum Word Length';
             $('#modal2 .modal-data').html('<div class="input-field col s6">\
-                <input placeholder="Length" id="min_word_length_input" type="number" value="' + $('#min_word_length').html() + '" autofocus>\
+                <input placeholder="Length" id="min_word_length_input" type="number" value="' + $rootScope.opctrl.minWordLength + '" autofocus>\
               </div>');
             $('#modal2').modal('open');
             $rootScope.confirm = function() {
                 var min_word_length = $('#min_word_length_input').val();
-                console.log(min_word_length);
-                $('#min_word_length').html(min_word_length);
+                $rootScope.opctrl.minWordLength = min_word_length;
+                $rootScope.opctrl.setMinWordLength();
+                // $('#min_word_length').html(min_word_length);
                 // send to DB
-                $('#modal2').modal('close');
+                $('.modal').modal('close');
             }
         }
 
-        $scope.min_word_length = 1;
-        $scope.max_word_length = 1;
 
         $scope.translatedSequences = function() {
             $rootScope.modal_header = 'Translated Sequences Must Have';
             $('#modal2 .modal-data').html('<div class="input-field col s6">\
                 <div class="input-section">\
                 <p>Minimum Words</p>\
-                <input placeholder="Length" id="min_word_length_input" type="number" value="' + $scope.min_word_length + '" autofocus>\
+                <input placeholder="Length" id="min_word_length_input" type="number" value="' + $rootScope.opctrl.ngramMin + '" autofocus>\
                 </div>\
                 <div class="input-section">\
                 <p>Maximum Words</p>\
-                <input placeholder="Length" id="max_word_length_input" type="number" value="' + $scope.max_word_length + '" autofocus>\
+                <input placeholder="Length" id="max_word_length_input" type="number" value="' + $rootScope.opctrl.ngramMax + '" autofocus>\
                 </div>\
               </div>');
             $('#modal2').modal('open');
             $rootScope.confirm = function() {
                 var min_word_length = $('#min_word_length_input').val();
                 var max_word_length = $('#max_word_length_input').val();
-                console.log(min_word_length, max_word_length);
+                if ($rootScope.opctrl.ngramMin != min_word_length) {
+                    $rootScope.opctrl.ngramMin = min_word_length;
+                    $rootScope.opctrl.setNgramMin()
+                }
+                if ($rootScope.opctrl.ngramMax != max_word_length) {
+                    $rootScope.opctrl.ngramMax = max_word_length;
+                    $rootScope.opctrl.setNgramMax()
+                }
                 // send to DB
-                $('#modal2').modal('close');
+                $('.modal').modal('close');
             }
         }
 
-        
+
 
 
         // console.log($state,$location.$$path);
@@ -403,11 +408,6 @@ angular.module('mtwApp')
 
         $rootScope.redirect_url = 'app.advanced';
 
-        $scope.delete = function($event) {
-            var $element = $($event.target).closest('.collection-item');
-            // send to DB
-            $element.remove();
-        }
 
         $scope.add = function() {
             $rootScope.modal_header = 'New User Defined Translation';
@@ -422,38 +422,122 @@ angular.module('mtwApp')
         $rootScope.submit = function() {
             var new_user_defined_translation_original = $('#new_user_defined_translation_original').val();
             var new_user_defined_translation_translated = $('#new_user_defined_translation_translated').val();
-            $scope.user_defined_translations.push({
-                original: new_user_defined_translation_original,
-                translated: new_user_defined_translation_translated
-            });
-            $('#modal1').modal('close');
+
+            $rootScope.opctrl.original = new_user_defined_translation_original;
+            $rootScope.opctrl.translated = new_user_defined_translation_translated;
+            $rootScope.opctrl.addUserDefinedTranslation();
+            $('.modal').modal('close');
         }
         // console.log($state,$location.$$path);
     }])
     .controller('PlaybackSettingsController', ['$rootScope', '$scope', '$state', '$location', function($rootScope, $scope, $state, $location) {
         $rootScope.title = 'Playback Settings';
 
+        var voices = [
+            "Allison",
+            "Agnes",
+            "Albert",
+            "Alex",
+            "Alice",
+            "Alva",
+            "Amelie",
+            "Anna",
+            "Bad News",
+            "Bahh",
+            "Bells",
+            "Boing",
+            "Bruce",
+            "Bubbles",
+            "Carmit",
+            "Cellos",
+            "Damayanti",
+            "Daniel",
+            "Deranged",
+            "Diego",
+            "Ellen",
+            "Fiona",
+            "Fred",
+            "Good News",
+            "Hysterical",
+            "Ioana",
+            "Joana",
+            "Junior",
+            "Kanya",
+            "Karen",
+            "Kathy",
+            "Kyoko",
+            "Laura",
+            "Lekha",
+            "Luciana",
+            "Maged",
+            "Mariska",
+            "Mei-Jia",
+            "Melina",
+            "Milena",
+            "Moira",
+            "Monica",
+            "Nora",
+            "Paulina",
+            "Pipe Organ",
+            "Princess",
+            "Ralph",
+            "Samantha",
+            "Sara",
+            "Satu",
+            "Sin-ji",
+            "Tessa",
+            "Thomas",
+            "Ting-Ting",
+            "Trinoids",
+            "Veena",
+            "Vicki",
+            "Victoria",
+            "Whisper",
+            "Xander",
+            "Yelda",
+            "Yuna",
+            "Zarvox",
+            "Zosia",
+            "Zuzana",
+            "Google Deutsch",
+            "Google US English",
+            "Google UK English Female",
+            "Google UK English Male",
+            "Google español",
+            "Google español de Estados Unidos",
+            "Google français",
+            "Google हिन्दी",
+            "Google Bahasa Indonesia",
+            "Google italiano",
+            "Google 日本語",
+            "Google 한국의",
+            "Google Nederlands",
+            "Google polski",
+            "Google português do Brasil",
+            "Google русский",
+            "Google&nbsp;普通话（中国大陆）",
+            "Google&nbsp;粤語（香港）",
+            "Google 國語（臺灣）",
+        ];
 
+        var voiceString = '<option value="" disabled selected>Select Voice Name</option>';
+        voices.forEach(function(voice) {
+            voiceString += '<option value="' + voice + '">' + voice + '</option>';
+        });
         $scope.voiceName = function() {
             $rootScope.modal_header = 'Voice Name';
             $('#modal2 .modal-data').html('<div class="input-field col s6">\
-                <select id="voice_name_input">\
-                  <option value="" disabled selected>Select Voice Name</option>\
-                  <option value="Google US">Google US</option>\
-                  <option value="Hindi">Hindi</option>\
-                  <option value="Google UK">Google UK</option>\
-                </select>\
+                <select id="voice_name_input" class="browser-default">' + voiceString + '</select>\
               </div>');
             $('select').material_select();
-            $('.modal').addClass('no-overflow');
             $('#modal2').modal('open');
 
             $rootScope.confirm = function() {
                 var voice_name = $('#voice_name_input').val();
-                console.log(voice_name);
-                $('#voice_name').html(voice_name);
+                $rootScope.opctrl.voiceName = voice_name;
+                $rootScope.opctrl.updatePlaybackOptions();
                 // send to DB
-                $('#modal2').modal('close');
+                $('.modal').modal('close');
             }
         }
 
@@ -462,16 +546,19 @@ angular.module('mtwApp')
             $rootScope.modal_header = 'Default Volume';
             $('#modal2 .modal-data').html('<div class="input-field col s6">\
                 <p class="range-field">\
-                  <input type="range" id="default_volume_input" min="0" max="100" />\
+                  <input type="range" id="default_volume_input" min="0.2" max="1.0" value="' + $rootScope.opctrl.volume + '" step="0.1"/>\
                 </p>\
               </div>');
             $('#modal2').modal('open');
 
             $rootScope.confirm = function() {
                 var default_volume = $('#default_volume_input').val();
-                console.log(default_volume);
+                if ($rootScope.opctrl.volume != default_volume) {
+                    $rootScope.opctrl.volume = default_volume;
+                    $rootScope.opctrl.updatePlaybackOptions();
+                }
                 // send to DB
-                $('#modal2').modal('close');
+                $('.modal').modal('close');
             }
         }
 
@@ -479,16 +566,19 @@ angular.module('mtwApp')
             $rootScope.modal_header = 'Speech Rate';
             $('#modal2 .modal-data').html('<div class="input-field col s6">\
                 <p class="range-field">\
-                  <input type="range" id="speech_rate_input" min="0" max="100" />\
+                  <input type="range" id="speech_rate_input" min="0.5" max="4.0" value="' + $rootScope.opctrl.rate + '" step="0.1" />\
                 </p>\
               </div>');
             $('#modal2').modal('open');
 
             $rootScope.confirm = function() {
                 var speech_rate = $('#speech_rate_input').val();
-                console.log(speech_rate);
+                if ($rootScope.opctrl.rate != speech_rate) {
+                    $rootScope.opctrl.rate = speech_rate;
+                    $rootScope.opctrl.updatePlaybackOptions()
+                }
                 // send to DB
-                $('#modal2').modal('close');
+                $('.modal').modal('close');
             }
         }
 
@@ -496,46 +586,49 @@ angular.module('mtwApp')
             $rootScope.modal_header = 'Pitch';
             $('#modal2 .modal-data').html('<div class="input-field col s6">\
                 <p class="range-field">\
-                  <input type="range" id="pitch_input" min="0" max="100" />\
+                  <input type="range" id="pitch_input" min="0.0" max="2.0" value="' + $rootScope.opctrl.pitch + '" step="0.2" />\
                 </p>\
               </div>');
             $('#modal2').modal('open');
 
             $rootScope.confirm = function() {
                 var pitch = $('#pitch_input').val();
-                console.log(pitch);
+                if ($rootScope.opctrl.pitch = pitch) {
+                    $rootScope.opctrl.pitch = pitch;
+                    $rootScope.opctrl.updatePlaybackOptions();
+                }
                 // send to DB
-                $('#modal2').modal('close');
+                $('.modal').modal('close');
             }
         }
 
 
-        
+
 
     }])
     .controller('BackupSettingsController', ['$rootScope', '$scope', '$state', '$location', function($rootScope, $scope, $state, $location) {
 
         $rootScope.title = 'Backup'
 
-        $scope.backupConfiguration = function() {
-            $('.toast').remove();
-            Materialize.toast('Configuration backup successfull',2000);
-        }
+        // $scope.backupConfiguration = function() {
+        //     $('.toast').remove();
+        //     Materialize.toast('Configuration backup successfull',2000);
+        // }
 
-        $scope.backupKeys = function() {
-            $('.toast').remove();
-            Materialize.toast('Keys backup successfull',2000);
-        }
+        // $scope.backupKeys = function() {
+        //     $('.toast').remove();
+        //     Materialize.toast('Keys backup successfull',2000);
+        // }
 
-        $scope.restoreConfiguration = function() {
-            $('.toast').remove();
-            Materialize.toast('Configuration restore successfull',2000);
-        }
+        // $scope.restoreConfiguration = function() {
+        //     $('.toast').remove();
+        //     Materialize.toast('Configuration restore successfull',2000);
+        // }
 
-        $scope.restoreAllSettings = function() {
-            $('.toast').remove();
-            Materialize.toast('Settings restore successfull',2000);
-        }
+        // $scope.restoreAllSettings = function() {
+        //     $('.toast').remove();
+        //     Materialize.toast('Settings restore successfull',2000);
+        // }
 
 
         $scope.resetConfiguration = function() {
@@ -544,9 +637,10 @@ angular.module('mtwApp')
             $('#modal2').modal('open');
 
             $rootScope.confirm = function() {
-                console.log('Reset Configuration');
+                // console.log('Reset Configuration');
+                $rootScope.opctrl.resetConfig();
                 // DB
-                $('#modal2').modal('close');
+                $('.modal').modal('close');
             }
         }
 
@@ -558,11 +652,12 @@ angular.module('mtwApp')
             $rootScope.confirm = function() {
                 console.log('Delete Keys');
                 // DB
-                $('#modal2').modal('close');
+                $rootScope.opctrl.deleteKeys();
+                $('.modal').modal('close');
             }
         }
 
-        
+
 
         // console.log($state,$location.$$path);
     }])
@@ -577,7 +672,7 @@ angular.module('mtwApp')
         });
 
         $scope.cancel = function() {
-          $('.modal').modal('close');
+            $('.modal').modal('close');
         }
         // $rootScope.title = 'Backup';
         // console.log($state,$location.$$path);

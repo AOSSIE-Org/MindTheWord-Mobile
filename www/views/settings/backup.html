@@ -3,16 +3,20 @@
         <div class="collection-section">
             <p class="sub-header">Backup</p>
             <div class="collection ">
-                <a class="collection-item" ng-click="backupConfiguration()">Backup Configuration</a>
-                <a class="collection-item" ng-click="backupKeys()">Backup Keys</a>
+                <a class="collection-item" ng-click="opctrl.backupAll()">Backup Configuration</a>
+                <a class="collection-item" ng-click="opctrl.backupKeys()">Backup Keys</a>
             </div>
         </div>
 
         <div class="collection-section">
             <p class="sub-header">Restore</p>
             <div class="collection ">
-                <a class="collection-item" ng-click="restoreConfiguration()">Restore Configuration</a>
-                <a class="collection-item" ng-click="restoreAllSettings()">Restore All Settings</a>
+                <a class="collection-item" ng-click="opctrl.restoreAll()">Restore Configuration</a>
+                <a class="collection-item" ng-click="opctrl.restoreKeys()">Restore Keys</a>
+            </div>
+            <div style="display: none">
+                <input type="file" id="config-file" style="display: none">
+                <input type="file" id="keys-file" style="display: none">
             </div>
         </div>
 

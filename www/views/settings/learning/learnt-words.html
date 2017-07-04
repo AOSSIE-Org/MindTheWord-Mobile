@@ -1,12 +1,12 @@
 <div class="full-bleed settings" ng-controller="LearntWordsController">
     <div class="settings-wrapper">
         <div class="collection">
-            <a class="collection-item" ng-repeat="learnt_word in learnt_words">
+            <a class="collection-item" ng-repeat="word in opctrl.learntWords">
                 <div class="left-item">
-                    {{ learnt_word }}
+                    {{word}}
                 </div>
                 <div class="right-item">
-                    <i class="material-icons" ng-click="delete($event)">delete</i>
+                    <i class="material-icons" ng-click="opctrl.removeLearntWord(word)">delete</i>
                 </div>
             </a>
 

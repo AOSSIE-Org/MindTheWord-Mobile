@@ -84,6 +84,8 @@ input#url:focus {
 .patterns-wrapper {
     margin-top: 8em;
     margin-bottom: 1em;
+    position: relative;
+    z-index: 1;
 }
 .bar {
     /*height: 6.2vh;*/
@@ -109,7 +111,7 @@ input#url:focus {
     font-size: 1.1em;
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 .selector {
@@ -159,9 +161,10 @@ input#url:focus {
     /*  display: flex;
     justify-content: center;
     align-items: flex-start;*/
-    
     margin: 16px;
     width: 100%;
+    position: relative;
+    z-index: 500;
 }
 .create-btn-wrapper {
     padding-bottom: 14px;
@@ -285,6 +288,7 @@ input#url:focus {
     font-size: 1.4em !important;
 }
 .modal {
+    max-height: initial;
     /*transform: translateY(-50%) !important;*/
 }
 .heading p {
@@ -345,4 +349,30 @@ span.colon {
     color: #57b5fc;
     width: 60%;
     justify-content: flex-end;
+}
+
+a.pattern-item.collection-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.collection .pattern-item.collection-item.active {
+    background-color: #e8e8e8;
+    color: #248bf3;
+}
+
+.disable-panel {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
+p.selector-label {
+    flex: 4;
+    /* text-align: left; */
+}
+
+.selector select {
+    flex: 6;
 }

@@ -3,7 +3,9 @@
         <ul class="collection ">
             <li class="collection-item" ng-click="voiceName()">
                 <div class="left-item" style="width: 40%">Voice Name</div>
-                <div class="right-item" id="voice_name">Google US English</div>
+                <div class="right-item" id="voice_name">
+                <input type="text" ng-model="opctrl.voiceName" class="settings-inline-input">
+                </div>
             </li>
             <li class="collection-item" ng-click="defaultVolume()">
                 Default Volume Level

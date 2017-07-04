@@ -5,14 +5,16 @@
     </div>
     <div class="settings-wrapper">
         <div class="collection with-division">
-            <a class="collection-item" ng-repeat="difficulty_bucket_word in difficulty_bucket_words track by $index">
+            <a class="collection-item" ng-repeat="word in opctrl.difficultyBucketsWords" ng-switch="opctrl.difficultyBuckets[word]">
                 <div class="left-item ">
-                    <p>{{ difficulty_bucket_word.word }}</p>
+                    <p>{{word}}</p>
                     <span class="colon">:</span>
-                    <p>{{ difficulty_bucket_word.level }}</p>
+                    <p ng-switch-when='e'>Easy</p>
+                    <p ng-switch-when='n'>Normal</p>
+                    <p ng-switch-when='h'>Hard</p>
                 </div>
                 <div class="right-item">
-                    <i class="material-icons" ng-click="delete($event)">delete</i>
+                    <i class="material-icons" ng-click="opctrl.removeWordFromDifficultyBucket(word)">delete</i>
                 </div>
             </a>
 

@@ -28,15 +28,11 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <exclude-files pattern="scripts/controllers/*.js" />
-    <exclude-files pattern="scripts/filters/*.js" />
-    <exclude-files pattern="scripts/utils/*.js" />
-    <exclude-files pattern="scripts/services/*.js" />
-    <exclude-files pattern="assets/js/jquery.min.js" />
     <plugin name="cordova-plugin-browsersync" spec="git+https://github.com/nparashuram/cordova-plugin-browsersync.git" />
     <plugin name="cordova-plugin-camera" spec="~2.4.1" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-exclude-files" spec="^0.2.2" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
 </widget>

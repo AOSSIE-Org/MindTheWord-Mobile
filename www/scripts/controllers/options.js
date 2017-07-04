@@ -17,8 +17,9 @@ export class OptionCtrl {
    * @param {Object} $scope - Angular scope
    * @param {Object} $timeout - Angular timeout
    */
-  constructor($scope, $timeout,$rootScope) {
+  constructor($scope, $timeout,$rootScope,$cordovaFileTransfer) {
     this.$rootScope = $rootScope;
+    this.$cordovaFileTransfer = $cordovaFileTransfer;
     this.$timeout = $timeout;
     this.$scope = $scope;
     this.patterns = [];
@@ -86,6 +87,7 @@ export class OptionCtrl {
     var $this = this; 
     FirebaseApp.ref('devices/' + localStorage.deviceID).once('value').then(function(snapshot){
       var device_info = snapshot.val();
+      console.log(device_info,localStorage.deviceID);
       var data = device_info.options;      
       $this.logMessages = JSON.parse(data.logMessages);
       $this.patterns = JSON.parse(data.savedPatterns);
@@ -836,11 +838,12 @@ export class OptionCtrl {
 
   intializeStyleOptions() {
     this.textColor = this.cssOptions[1].split(':')[1];
+    console.log(this.textColor);
     this.backColor = this.cssOptions[2].split(':')[1];
   }
 
-  setTextColor(data) {
-    this.cssOptions[1] = 'color:' + data.color.toHex();
+  setTextColor() { 
+    this.cssOptions[1] = 'color: #' + this.textColor;
     this.translatedWordStyle = this.cssOptions.join(';');
     this.$timeout(() => {
       this.$scope.$apply();
@@ -849,8 +852,8 @@ export class OptionCtrl {
     FirebaseApp.ref('devices/' + localStorage.deviceID+'/options/').update({translatedWordStyle: this.cssOptions.join(';')});
   }
 
-  setBackgroundColor(data) {
-    this.cssOptions[2] = 'background-color:' + data.color.toHex();
+  setBackgroundColor() {
+    this.cssOptions[2] = 'background-color: #' + this.backColor;
     this.translatedWordStyle = this.cssOptions.join(';');
     this.$timeout(() => {
       this.$scope.$apply();
@@ -864,12 +867,16 @@ export class OptionCtrl {
   /****************************** BACKUP FUNCTIONS ***********************/
 
   resetConfig() {
+    var $this=this;
     FirebaseApp.ref('default/').once('value').then(function(options){
-        FirebaseApp.ref('devices/' + localStorage.deviceID+'/options/').set(options.val());
-    })
+        FirebaseApp.ref('devices/' + localStorage.deviceID+'/options/').set(options.val()).then(function(){
+            $this.getData();
+            $this.setup();
+            Materialize.toast('Configuration Reset',1000);
+        });
+    });
     // chrome.storage.local.clear();
     // chrome.storage.local.set(localData);
-    window.location.reload();
   }
 
   deleteKeys() {
@@ -889,19 +896,28 @@ export class OptionCtrl {
   backupKeys() {
     FirebaseApp.ref('devices/' + localStorage.deviceID+'/options/').once('value').then(function(snapshot){
       var data = {
-          googleTranslatorApiKey:snapshot.googleTranslatorApiKey,
-          bingTranslatorApiKey:snapshot.bingTranslatorApiKey,
-          yandexTranslatorApiKey:snapshot.yandexTranslatorApiKey
+          googleTranslatorApiKey:snapshot.val().googleTranslatorApiKey,
+          bingTranslatorApiKey:snapshot.val().bingTranslatorApiKey,
+          yandexTranslatorApiKey:snapshot.val().yandexTranslatorApiKey
       };
       saveFile(data, 'mtw_keys.txt');
     });
   }
 
   backupAll() {
-    
-    FirebaseApp.ref('devices/' + localStorage.deviceID+'/options/').once('value').then(function(snapshot){
-      saveFile(snapshot, 'mtw_config.txt');
-    });
+    // var url = "https://mindtheword-16735.firebaseio.com/devices/"+localStorage.deviceID+"/options.json?print=pretty&format=export&download=mtw_config.txt";
+    // var targetPath = cordova.file.documentsDirectory + "mtw_config.txt";
+    // var trustHosts = true;
+    // var options = {};
+
+    // this.$cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+    //   .then(function(result) {
+    //     Materialize.toast('Backup Succesfull',1000);
+    //   });
+    // FirebaseApp.ref('devices/' + localStorage.deviceID+'/options/').once('value').then(function(snapshot){
+    //   console.log(snapshot.val());
+    //   saveFile(snapshot.val(), 'mtw_config.txt');
+    // });
   }
 
   validateKeysFile(data) {
@@ -1087,6 +1103,7 @@ export class OptionCtrl {
         });
             
         }
+
 
 }
 

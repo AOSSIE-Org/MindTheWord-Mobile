@@ -8,7 +8,7 @@
                         Text Color
                     </div>
                     <div class="right-item" style="width: 60%">
-                        <input type="text" id="text_color_input" class="jscolor settings-inline-input" value="ff0000" data-jscolor="{backgroundColor:'white'}" readonly=""></input>
+                        <input type="text" id="text_color_input" class="jscolor settings-inline-input" value="ff0000" data-jscolor="{backgroundColor:'white'}" readonly="" ng-model="opctrl.textColor" ng-change="opctrl.setTextColor()"></input>
                     </div>
                 </li>
                 <li class="collection-item">
@@ -16,7 +16,7 @@
                         Background Color
                     </div>
                     <div class="right-item" style="width: 60%">
-                        <input type="text" id="background_color_input" class="jscolor settings-inline-input" value="ff0000" data-jscolor="{backgroundColor:'white'}" readonly=""></input>
+                        <input type="text" id="background_color_input" class="jscolor settings-inline-input" value="ff0000" data-jscolor="{backgroundColor:'white'}" readonly="" ng-model="opctrl.backColor" ng-change="opctrl.setBackgroundColor()"></input>
                     </div>
                 </li>
             </ul>
@@ -29,7 +29,9 @@
                     <div class="left-item">
                         Minimum Word Length
                     </div>
-                    <div class="right-item" id="min_word_length">3</div>
+                    <div class="right-item" id="min_word_length">
+                    <input type="text" class="settings-inline-input" ng-model="opctrl.minWordLength">
+                    </div>
                 </li>
                 <li class="collection-item" ng-click="translatedSequences()">
                     <div class="left-item">
@@ -52,4 +54,3 @@
     </div>
 </div>
 
-<script type="text/javascript" src='assets/js/jscolor.min.js'></script>

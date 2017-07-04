@@ -26341,11 +26341,12 @@ $__System.register('23', [], function (_export) {
     var a = document.createElement('a'),
         blob = new Blob([JSON.stringify(data)], { type: 'text/plain;charset=utf-8' }),
         url = window.URL.createObjectURL(blob);
-    document.body.appendChild(a);
     a.style.display = 'none';
     a.href = url;
     a.download = filename;
+    document.body.appendChild(a);
     a.click();
+    console.log(a);
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
   }
@@ -27420,10 +27421,11 @@ $__System.register('1', ['5', '6', '12', '22', '23', '24', '25', '26', '1d', '1e
          * @param {Object} $timeout - Angular timeout
          */
 
-        function OptionCtrl($scope, $timeout, $rootScope) {
+        function OptionCtrl($scope, $timeout, $rootScope, $cordovaFileTransfer) {
           _classCallCheck(this, OptionCtrl);
 
           this.$rootScope = $rootScope;
+          this.$cordovaFileTransfer = $cordovaFileTransfer;
           this.$timeout = $timeout;
           this.$scope = $scope;
           this.patterns = [];
@@ -27494,6 +27496,7 @@ $__System.register('1', ['5', '6', '12', '22', '23', '24', '25', '26', '1d', '1e
             var $this = this;
             FirebaseApp.ref('devices/' + localStorage.deviceID).once('value').then(function (snapshot) {
               var device_info = snapshot.val();
+              console.log(device_info, localStorage.deviceID);
               var data = device_info.options;
               $this.logMessages = JSON.parse(data.logMessages);
               $this.patterns = JSON.parse(data.savedPatterns);
@@ -28333,14 +28336,15 @@ $__System.register('1', ['5', '6', '12', '22', '23', '24', '25', '26', '1d', '1e
           key: 'intializeStyleOptions',
           value: function intializeStyleOptions() {
             this.textColor = this.cssOptions[1].split(':')[1];
+            console.log(this.textColor);
             this.backColor = this.cssOptions[2].split(':')[1];
           }
         }, {
           key: 'setTextColor',
-          value: function setTextColor(data) {
+          value: function setTextColor() {
             var _this22 = this;
 
-            this.cssOptions[1] = 'color:' + data.color.toHex();
+            this.cssOptions[1] = 'color: #' + this.textColor;
             this.translatedWordStyle = this.cssOptions.join(';');
             this.$timeout(function () {
               _this22.$scope.$apply();
@@ -28350,10 +28354,10 @@ $__System.register('1', ['5', '6', '12', '22', '23', '24', '25', '26', '1d', '1e
           }
         }, {
           key: 'setBackgroundColor',
-          value: function setBackgroundColor(data) {
+          value: function setBackgroundColor() {
             var _this23 = this;
 
-            this.cssOptions[2] = 'background-color:' + data.color.toHex();
+            this.cssOptions[2] = 'background-color: #' + this.backColor;
             this.translatedWordStyle = this.cssOptions.join(';');
             this.$timeout(function () {
               _this23.$scope.$apply();
@@ -28369,12 +28373,16 @@ $__System.register('1', ['5', '6', '12', '22', '23', '24', '25', '26', '1d', '1e
         }, {
           key: 'resetConfig',
           value: function resetConfig() {
+            var $this = this;
             FirebaseApp.ref('default/').once('value').then(function (options) {
-              FirebaseApp.ref('devices/' + localStorage.deviceID + '/options/').set(options.val());
+              FirebaseApp.ref('devices/' + localStorage.deviceID + '/options/').set(options.val()).then(function () {
+                $this.getData();
+                $this.setup();
+                Materialize.toast('Configuration Reset', 1000);
+              });
             });
             // chrome.storage.local.clear();
             // chrome.storage.local.set(localData);
-            window.location.reload();
           }
         }, {
           key: 'deleteKeys',
@@ -28398,9 +28406,9 @@ $__System.register('1', ['5', '6', '12', '22', '23', '24', '25', '26', '1d', '1e
           value: function backupKeys() {
             FirebaseApp.ref('devices/' + localStorage.deviceID + '/options/').once('value').then(function (snapshot) {
               var data = {
-                googleTranslatorApiKey: snapshot.googleTranslatorApiKey,
-                bingTranslatorApiKey: snapshot.bingTranslatorApiKey,
-                yandexTranslatorApiKey: snapshot.yandexTranslatorApiKey
+                googleTranslatorApiKey: snapshot.val().googleTranslatorApiKey,
+                bingTranslatorApiKey: snapshot.val().bingTranslatorApiKey,
+                yandexTranslatorApiKey: snapshot.val().yandexTranslatorApiKey
               };
               saveFile(data, 'mtw_keys.txt');
             });
@@ -28408,10 +28416,19 @@ $__System.register('1', ['5', '6', '12', '22', '23', '24', '25', '26', '1d', '1e
         }, {
           key: 'backupAll',
           value: function backupAll() {
+            // var url = "https://mindtheword-16735.firebaseio.com/devices/"+localStorage.deviceID+"/options.json?print=pretty&format=export&download=mtw_config.txt";
+            // var targetPath = cordova.file.documentsDirectory + "mtw_config.txt";
+            // var trustHosts = true;
+            // var options = {};
 
-            FirebaseApp.ref('devices/' + localStorage.deviceID + '/options/').once('value').then(function (snapshot) {
-              saveFile(snapshot, 'mtw_config.txt');
-            });
+            // this.$cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+            //   .then(function(result) {
+            //     Materialize.toast('Backup Succesfull',1000);
+            //   });
+            // FirebaseApp.ref('devices/' + localStorage.deviceID+'/options/').once('value').then(function(snapshot){
+            //   console.log(snapshot.val());
+            //   saveFile(snapshot.val(), 'mtw_config.txt');
+            // });
           }
         }, {
           key: 'validateKeysFile',
