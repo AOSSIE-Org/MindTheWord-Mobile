@@ -1,0 +1,23 @@
+<div class="full-bleed settings" ng-controller="UserDefinedTranslationsController">
+    <div class="heading">
+        <p>Original</p>
+        <p>Translated</p>
+    </div>
+    <div class="settings-wrapper">
+        <div class="collection with-division">
+            <a class="collection-item" ng-repeat="translation in opctrl.userDefinedTranslationList">
+                <div class="left-item ">
+                    <p>{{ translation[0] }}</p>
+                    <span class="colon">:</span>
+                    <p>{{ translation[1] }}</p>
+                </div>
+                <div class="right-item">
+                    <i class="material-icons" ng-click="opctrl.removeUserDefinedTranslation(translation[0])">delete</i>
+                </div>
+            </a>
+        </div>
+        <div class="add-btn-wrapper">
+            <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add()"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+</div>

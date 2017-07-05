@@ -1,0 +1,31 @@
+<div class="full-bleed settings" ng-controller="BackupSettingsController">
+    <div class="settings-wrapper">
+        <div class="collection-section">
+            <p class="sub-header">Backup</p>
+            <div class="collection ">
+                <a class="collection-item" ng-click="opctrl.backupAll()">Backup Configuration</a>
+                <a class="collection-item" ng-click="opctrl.backupKeys()">Backup Keys</a>
+            </div>
+        </div>
+
+        <div class="collection-section">
+            <p class="sub-header">Restore</p>
+            <div class="collection ">
+                <a class="collection-item" ng-click="opctrl.restoreAll()">Restore Configuration</a>
+                <a class="collection-item" ng-click="opctrl.restoreKeys()">Restore Keys</a>
+            </div>
+            <div style="display: none">
+                <input type="file" id="config-file" style="display: none">
+                <input type="file" id="keys-file" style="display: none">
+            </div>
+        </div>
+
+        <div class="collection-section">
+            <p class="sub-header">Danger Zone</p>
+            <div class="collection ">
+                <a class="collection-item" ng-click="resetConfiguration()">Reset Configuration</a>
+                <a class="collection-item" ng-click="deleteKeys()">Delete Keys</a>
+            </div>
+        </div>
+    </div>
+</div>
