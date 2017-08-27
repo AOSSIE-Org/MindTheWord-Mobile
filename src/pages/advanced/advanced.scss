@@ -1,0 +1,24 @@
+page-advanced {
+	.color-picker-item{
+		contain: none !important;
+		display: flex;
+		ion-label,ion-input{
+			flex:1
+		}
+
+		.item-inner{
+			border: none !important;
+			box-shadow: none !important;
+		}
+
+		input{
+			text-align: right !important;
+		}
+
+	}
+
+	.item-input {
+		border: none !important;
+		box-shadow: none !important;
+	}
+}

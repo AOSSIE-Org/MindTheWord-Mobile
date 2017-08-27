@@ -1,0 +1,42 @@
+page-landing {
+	.scroll-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	
+	.landing{
+		background-color: color($colors,secondary);
+
+		ion-col {
+			margin: 0.7rem 0 !important;
+		}
+		button {
+			margin-top: 20px;
+			padding: 8.1px !important;
+		}
+
+		.logo-lg{
+			display: flex;
+			justify-content: center;
+		}
+
+		ion-col.title{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			h4{
+				font-size: 1.7rem;
+				font-weight: normal;
+				margin: 0;
+			}	
+			
+		}
+		p.skip{
+			color: #df4a32;
+			font-size: 1.2rem;
+		}
+	}
+}

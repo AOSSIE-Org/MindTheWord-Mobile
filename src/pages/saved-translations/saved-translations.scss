@@ -1,0 +1,16 @@
+page-saved-translations {
+	ion-grid {
+		padding: 0 !important;
+	}
+
+	ion-col button {
+		margin: 0 !important;
+		height: initial !important;
+	}
+
+	ion-col.col {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

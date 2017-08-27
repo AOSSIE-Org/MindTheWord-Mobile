@@ -1,0 +1,9 @@
+page-settings {
+	.scroll-content {
+		background: color($colors,secondary);
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		overflow-y:auto !important;
+	}
+}

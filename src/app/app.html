@@ -1,0 +1,30 @@
+<ion-menu [content]="mainNav">
+	<ion-header>
+		<ion-toolbar color="primary">
+			<ion-title>Menu</ion-title>
+		</ion-toolbar>
+	</ion-header>
+
+    <ion-content>
+        <ion-list no-lines>
+            <button ion-item menuClose (click)="openPage(homePage)">
+                <ion-icon name="home" item-start></ion-icon>
+                Home
+             </button>
+            <button ion-item menuClose (click)="goToSettings()">
+            <ion-icon name="settings" item-start></ion-icon>
+                Settings
+            </button>
+            <button ion-item menuClose *ngIf="opctrl.user" (click)="logout()">
+            <ion-icon name="log-out" item-start></ion-icon>
+                Logout
+            </button>
+            <button ion-item menuClose *ngIf="!opctrl.user" (click)="goToLanding()">
+            <ion-icon name="log-in" item-start></ion-icon>
+                Login
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav #mainNav [root]="rootPage"></ion-nav>
