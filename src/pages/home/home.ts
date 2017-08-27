@@ -5,20 +5,35 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { NewPatternPage } from '../new-pattern/new-pattern';
 
-// import { HttpProvider } from '../../providers/http-provider';
+
 import { AlertController } from 'ionic-angular';
 import { Http  } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Clipboard } from '@ionic-native/clipboard';
 
+/**
+* Home Page which shows list of patterns added by the user and an input box where the user can enter the url 
+*/
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
 
-    url:any;
+    /**
+    * To store the url entered by the user
+    */
+    url:string;
+
+    /**
+    * A flag variable which keeps a check if clipboard contains a valid url
+    */
     hasURL : boolean;
+
+    /**
+    * @param {InAppBrowser} iab InAppBrowser instance
+    * @param {Clipboard} clipboard Clipboard instance
+    */
     constructor(platform: Platform,public navCtrl: NavController,public iab: InAppBrowser,public clipboard: Clipboard,private menuCtrl:MenuController,public opctrl:OptionsController,public alertCtrl: AlertController,public http:Http,public loadingCtrl: LoadingController) {
         this.menuCtrl.enable(true);
         this.url='https://en.wikipedia.org/wiki/English_Wikipedia';
@@ -48,10 +63,18 @@ export class HomePage {
         });
     }
 
+    /**
+    * Navigates to a page to add a new pattern
+    */
     goToNewPatternPage(){
         this.navCtrl.push(NewPatternPage)
     }
 
+    /**
+    * Configures and starts the [InAppBrowser] {@link https://ionicframework.com/docs/native/in-app-browser/}
+    * 
+    * It loads the script mtw.js and inserts in the webpage
+    */
     search(){
         if (!this.url.startsWith('http'))
             this.url = 'http://' + this.url;
@@ -100,7 +123,9 @@ export class HomePage {
         browser.show();
     }
 
-
+    /**
+    * Opens the dialog box in case user has copied a url from any external source (e.g. chrome)
+    */
     showConfirm(resolve) {
         let confirm = this.alertCtrl.create({
             title: '',
@@ -129,11 +154,15 @@ export class HomePage {
         confirm.present();
     }
 
-    isURL(s) {
+    /**
+    * Checks for a valid url
+    * @param {string} str String which contains url
+    */
+    isURL(str:string) {
         //Credit: http://stackoverflow.com/a/3809435
         var expr = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
         var regex = new RegExp(expr);
-        var result = s.match(regex);
+        var result = str.match(regex);
         if(result) return true;
         return false;
     };

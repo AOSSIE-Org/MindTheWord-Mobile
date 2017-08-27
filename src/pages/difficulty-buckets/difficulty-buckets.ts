@@ -6,8 +6,7 @@ import { NewDifficultyWord } from '../new-difficulty-word/new-difficulty-word';
 /**
  * Generated class for the DifficultyBuckets page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page displays a list of all difficulty words
  */
 
  @Component({
@@ -24,6 +23,9 @@ import { NewDifficultyWord } from '../new-difficulty-word/new-difficulty-word';
          // console.log('ionViewDidLoad DifficultyBuckets');
      }
 
+     /**
+     * Navigates to a new page to add Difficulty Words
+     */
      add(){
          this.navCtrl.push(NewDifficultyWord);
      }

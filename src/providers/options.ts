@@ -7,13 +7,6 @@ import { ToastController,LoadingController } from 'ionic-angular';
 // import { File } from '@ionic-native/file';
 import { GooglePlus } from '@ionic-native/google-plus';
 
-/*
-  Generated class for the Options provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-      */
-
 
 /** Class for option page angular controller */
 @Injectable()
@@ -91,8 +84,8 @@ export class OptionsController {
     /**
      * Initialize options page data and jQuery
      * @constructor
-     * @param {Object} $scope - Angular scope
-     * @param {Object} $timeout - Angular timeout
+     * @param {GooglePlus} googlePlus - GooglePlus instance
+     * @param {Utils} utils - Utils (contains utility functions) instance
      */
     constructor(public utils: Utils, public toastCtrl: ToastController, public loadingCtrl: LoadingController,public googlePlus: GooglePlus) {
         this.user = false;
@@ -108,6 +101,9 @@ export class OptionsController {
 
     }
 
+    /**
+    * Connects to Firebase Database and initializes the instance members 
+    */
     getData() {
         var $this = this;
         let loading = this.loadingCtrl.create({
@@ -181,7 +177,11 @@ export class OptionsController {
         });
     }
 
-    getYandexLimit(period) {
+    /**
+    * Calculates the limit for Yandex translation
+    * @param {string} period Period for which the count must be made
+    */
+    getYandexLimit(period:string) {
         if (this.stats['translatorWiseWordCount'][0][this.currentMonth]) {
             var limit;
             switch (period) {
@@ -213,6 +213,9 @@ export class OptionsController {
     }
 
 
+    /**
+    * Initiliazes the instance members on startup
+    */
     setup() {
         this.patterns = [];
         this.logMessages = [];
@@ -309,7 +312,13 @@ export class OptionsController {
 
 
 
-
+    /**
+    * Function to show alert at certain status checks
+    * @param {string} text Text to put in the status element
+    * @param {Number} duration Duration of the status
+    * @param {Number} fade Duration for the fade
+    * @param {string} type Status type
+    */
     status(text, duration, fade, type) {
         (function(text, duration, fade) {
             var status = document.createElement('div');
@@ -331,6 +340,11 @@ export class OptionsController {
         })(text, duration, fade);
     }
 
+    /**
+    * Function to save data to Firebase Database and show alert
+    * @param {Object} data Data to be updated
+    * @param {string} successMessage Message to be displayed after updation
+    */
     save(data, successMessage) {
         var $this = this;
         $this.utils.firebaseApp.ref(this.getUrl() + '/options/').update(data).then(function() {
@@ -1191,6 +1205,9 @@ export class OptionsController {
         }, 'Removed Log');
     }
 
+    /**
+    * Utility function to configure the Firebase App incase user does not sign in
+    */
     firebaseConfig() {
         var device;
         var $this = this;
@@ -1251,6 +1268,9 @@ export class OptionsController {
 
     }
 
+    /**
+    * Utility function to return firbase url based on logged in status of user
+    */
     getUrl() {
         if (localStorage.user) {
             return 'users/' + JSON.parse(localStorage.user).uid;
@@ -1259,6 +1279,12 @@ export class OptionsController {
         }
     }
 
+    /**
+    * Sign In to Firebase Auth after successful Google OAuth Sign In
+    *
+    * Creates a new user and initializes member variables with the default values otherwise if the user exists uses the values for that user
+    * @param {Object} res Response Object recieved after Google Sign In - It contains the users basic data
+    */
     firebaseAuth(res) {
         var $this = this;
         const firecreds = $this.utils.firebase.auth.GoogleAuthProvider.credential(res.idToken);
@@ -1294,6 +1320,9 @@ export class OptionsController {
     }
 
 
+    /** 
+    * Initializes login to Google OAuth and calls {@link firebasAuth}
+    */
     login() {
 
         return this.googlePlus.login({
@@ -1305,7 +1334,9 @@ export class OptionsController {
             .catch(err => console.error(err));
     }
 
-
+    /** 
+    * Logs out the user
+    */
     logout() {
 
         return this.googlePlus.logout()

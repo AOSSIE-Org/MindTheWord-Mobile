@@ -10,15 +10,14 @@ import { OptionsController } from '../../providers/options';
 /**
  * Generated class for the Blacklist page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page contains options for several blacklisting options
  */
 
  @Component({
      selector: 'page-blacklist',
      templateUrl: 'blacklist.html',
  })
- export class Blacklist {
+ export class BlacklistPage {
 
 
      autoBlacklist : any;
@@ -38,6 +37,9 @@ import { OptionsController } from '../../providers/options';
          this.navCtrl.push(BlacklistWords);
      }
 
+     /**
+     * Opens dialog box to prompt user to enter values for Maximum Word Toggles & Maximum Activation Toggles
+     */
      changeAutoBlacklist(){
          if(this.autoBlacklist){
              let prompt = this.alertCtrl.create({
@@ -67,12 +69,10 @@ import { OptionsController } from '../../providers/options';
                      text: 'Save',
                      handler: data => {
                          if (this.opctrl.wordToggles != data['maximum_word_toggles']) {
-                             console.log(this.opctrl.wordToggles, data['maximum_word_toggles']);
                              this.opctrl.wordToggles = data['maximum_word_toggles'];
                              this.opctrl.updateWordToggles();
                          }
                          if (this.opctrl.activationToggles != data['maximum_activation_toggles']) {
-                             console.log(this.opctrl.activationToggles, data['maximum_activation_toggles']);
                              this.opctrl.activationToggles = data['maximum_activation_toggles'];
                              this.opctrl.updateActivationToggles();
                          }

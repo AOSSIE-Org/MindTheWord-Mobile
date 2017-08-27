@@ -5,8 +5,7 @@ import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the BlacklistWebsites page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page displays a list of all websites which have been blacklisted
  */
 
  @Component({
@@ -22,6 +21,9 @@ import { AlertController } from 'ionic-angular';
          console.log('ionViewDidLoad BlacklistWebsites');
      }
 
+     /**
+     * Opens a dialog box to prompt user to enter new website url and adds to the blacklist website list
+     */
      add(){
          let prompt = this.alertCtrl.create({
              title: 'New Blacklist Website',

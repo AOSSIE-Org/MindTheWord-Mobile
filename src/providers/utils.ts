@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as firebase  from 'firebase';
-/*
-  Generated class for the Utils provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
+/**
+* General Utility function
 */
 @Injectable()
 export class Utils {
@@ -31,6 +28,9 @@ export class Utils {
         return month[d.getDay() - 1];
     }
 
+    /**
+    * Configuration to initialize the Firebase connection
+    */
     initializeFirebaseApp() {
         var config = {
             apiKey: "AIzaSyBH9sF0wHfwPozo9-5HwNjg_i1XfeL-Azk",

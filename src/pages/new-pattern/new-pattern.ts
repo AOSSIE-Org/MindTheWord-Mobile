@@ -6,8 +6,7 @@ import { OptionsController } from '../../providers/options';
 /**
  * Generated class for the NewPattern page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This pages contains various inputs for user to create new pattern
  */
 
  @Component({

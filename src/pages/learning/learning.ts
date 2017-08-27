@@ -7,17 +7,20 @@ import { SavedTranslations } from '../saved-translations/saved-translations';
 /**
  * Generated class for the Learning page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page contains options for several learning options
  */
 
  @Component({
      selector: 'page-learning',
      templateUrl: 'learning.html',
  })
- export class Learning {
+ export class LearningPage {
 
+     /**
+     * Contains list of Pages where the user will navigate according to his selection
+     */
      menuItems = [];
+     
      constructor(public navCtrl: NavController, public navParams: NavParams) {
          this.menuItems = [{
              'name':'Difficulty Buckets',
@@ -35,6 +38,10 @@ import { SavedTranslations } from '../saved-translations/saved-translations';
          console.log('ionViewDidLoad Learning');
      }
 
+     /**
+     * Navigates based on the option selected by user
+     * @param {Page} page The Page where the user wants to navigate
+     */
      openPage(page){
          this.navCtrl.push(page);
      }

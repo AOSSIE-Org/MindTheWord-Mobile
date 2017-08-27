@@ -11,11 +11,11 @@ import { HomePage } from '../pages/home/home';
 import { LandingPage } from '../pages/landing/landing';
 import { NewPatternPage } from '../pages/new-pattern/new-pattern';
 import { SettingsPage } from '../pages/settings/settings';
-import { Blacklist } from '../pages/blacklist/blacklist';
-import { Translation } from '../pages/translation/translation';
-import { Backup } from '../pages/backup/backup';
-import { Learning } from '../pages/learning/learning';
-import { Advanced } from '../pages/advanced/advanced';
+import { BlacklistPage } from '../pages/blacklist/blacklist';
+import { TranslationPage } from '../pages/translation/translation';
+import { BackupPage } from '../pages/backup/backup';
+import { LearningPage } from '../pages/learning/learning';
+import { AdvancedPage } from '../pages/advanced/advanced';
 import { BlacklistWebsites } from '../pages/blacklist-websites/blacklist-websites';
 import { BlacklistWords } from '../pages/blacklist-words/blacklist-words';
 import { DifficultyBuckets } from '../pages/difficulty-buckets/difficulty-buckets';
@@ -55,16 +55,16 @@ import { Clipboard } from '@ionic-native/clipboard';
     LandingPage,
     NewPatternPage,
     SettingsPage,
-    Blacklist,
-    Translation,
-    Backup,
-    Advanced,
+    BlacklistPage,
+    TranslationPage,
+    BackupPage,
+    AdvancedPage,
     BlacklistWebsites,
     BlacklistWords,
     DifficultyBuckets,
     LearntWords,
     SavedTranslations,
-    Learning,
+    LearningPage,
     NewDifficultyWord,
     UserDefinedTranslations,
     PlaybackSettings
@@ -82,16 +82,16 @@ import { Clipboard } from '@ionic-native/clipboard';
     LandingPage,
     NewPatternPage,
     SettingsPage,
-    Blacklist,
-    Translation,
-    Backup,
-    Advanced,
+    BlacklistPage,
+    TranslationPage,
+    BackupPage,
+    AdvancedPage,
     BlacklistWebsites,
     BlacklistWords,
     DifficultyBuckets,
     LearntWords,
     SavedTranslations,
-    Learning,
+    LearningPage,
     NewDifficultyWord,
     UserDefinedTranslations,
     PlaybackSettings

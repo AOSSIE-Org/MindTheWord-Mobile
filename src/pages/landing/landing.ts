@@ -9,8 +9,7 @@ import { OptionsController } from '../../providers/options';
 /**
  * Generated class for the Landing page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * Landing Page which has options to either sign in using [Google OAuth] {@link https://developers.google.com/identity/protocols/OAuth2} or skip 
  */
 
  @Component({
@@ -31,6 +30,9 @@ import { OptionsController } from '../../providers/options';
      }
 
 
+     /**
+     * Wrapper function to initiate Google Sign In and handle the navigation
+     */
      login(){
          let loading = this.loadingCtrl.create({
              content: 'Please wait...'
@@ -45,12 +47,17 @@ import { OptionsController } from '../../providers/options';
          });
      }
 
+     /**
+     * Skips the sign in and navigates to {@link HomePage} 
+     */
      skip(){
          this.navCtrl.setRoot(HomePage);
      }
 
 
-
+     /**
+     * Utility function to check permission for reading external file storage and requests incase permission is not granted
+     */
      checkPermission(){
          this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then(
              success=> localStorage.setItem('hasPermission','true'),

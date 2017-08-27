@@ -1,9 +1,11 @@
 var gulp = require('gulp'),
     jspm = require('gulp-jspm'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    compodoc= require('@compodoc/gulp-compodoc');
 
 var ts = require("gulp-typescript");
 
+var ts = require("gulp-typescript");
 
 gulp.task('watch',['bundle-content','copy-styles'],function() {
     gulp.watch('./src/translator/mtw.js', ['bundle-content']);
@@ -24,6 +26,16 @@ gulp.task('bundle-content', function() {
     }))
     .pipe(rename('mtw.js'))
     .pipe(gulp.dest('./www/build/'));
+});
+
+gulp.task('docs', () => {
+  return gulp.src('src/**/*.ts')
+    .pipe(compodoc({
+            output: 'docs',
+            tsconfig: 'tsconfig.json',
+            serve: true,
+            watch: true
+        }))
 });
 
 
