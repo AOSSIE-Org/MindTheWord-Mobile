@@ -1,0 +1,8 @@
+page-new-pattern {
+	.scroll-content {
+		background: color($colors,secondary);
+		display: flex;
+    	flex-direction: column;
+	    justify-content: flex-start;
+	}
+}

@@ -1,5 +1,5 @@
 System.config({
-  baseURL: "/www",
+  baseURL: "/",
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
@@ -22,7 +22,7 @@ System.config({
     "core-js": "npm:core-js@1.2.6",
     "firebase": "github:firebase/firebase-bower@4.1.3",
     "jquery": "npm:jquery@2.2.3",
-    "lodash": "npm:lodash@4.14.0",
+    "lodash": "npm:lodash@4.17.4",
     "materialize-css": "npm:materialize-css@0.99.0",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"

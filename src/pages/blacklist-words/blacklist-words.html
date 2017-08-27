@@ -1,0 +1,28 @@
+<!--
+Generated template for the BlacklistWords page.
+
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>Blacklist Words</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+    <ion-list>
+        <ion-item *ngFor="let word of opctrl.blacklistedWords">
+            {{ word }}
+            <button ion-button item-end clear (click)="opctrl.removeBlackListedWord(word)">
+                <ion-icon name="trash" ></ion-icon>
+            </button>
+        </ion-item>
+    </ion-list>
+    <ion-fab right bottom>
+        <button ion-fab color="primary" (click)="add()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+</ion-content>

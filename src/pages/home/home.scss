@@ -1,0 +1,47 @@
+page-home {
+	.scroll-content {
+		background: color($colors,secondary);
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	.search-wrapper,.pattern-wrapper{
+		margin-top:4rem;
+		ion-col{
+			display: flex;
+			justify-content: center;
+		}
+	}
+
+
+	ion-card-header{
+		background: color($colors,primary);
+		color:white !important;
+
+		#new-pattern{
+			float: right;
+		}
+	}
+
+	ion-card-content{
+		padding : 0 !important;
+	}
+
+	.patterns-list {
+		ion-icon {
+			font-size: 1.8rem;
+			display: flex;
+			align-items: center;
+			margin: 0 !important;
+		}
+		button {
+			font-size: 1.3rem;
+		}
+
+		ion-label {
+			margin: 0 !important;
+		}
+
+	}
+}
