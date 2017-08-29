@@ -10,16 +10,14 @@ import { PlaybackSettings } from '../playback-settings/playback-settings';
 
 /**
  * Generated class for the Advanced page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page contains advanced options for the configuration
  */
 
  @Component({
      selector: 'page-advanced',
      templateUrl: 'advanced.html',
  })
- export class Advanced {
+ export class AdvancedPage {
 
      // private color: string = "#127bdc";
      toggle : any;
@@ -28,7 +26,7 @@ import { PlaybackSettings } from '../playback-settings/playback-settings';
      }
 
      ionViewDidLoad() {
-         console.log('ionViewDidLoad Advanced');
+         console.log('ionViewDidLoad AdvancedPage');
      }
 
      changeMinLengthWord(){

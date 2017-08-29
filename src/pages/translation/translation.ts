@@ -8,15 +8,15 @@ import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the Translation page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page handles the translation services and their activation
+
  */
 
  @Component({
  	selector: 'page-translation',
  	templateUrl: 'translation.html',
  })
- export class Translation {
+ export class TranslationPage {
 
 
  	yandex:any;
@@ -35,6 +35,9 @@ import { AlertController } from 'ionic-angular';
          console.log('ionViewDidLoad Translation');
      }
 
+     /**
+     * Utility function to prompt user to enter Yandex key if user wants to activate Yandex Translation Service
+     */
      changeYandex(){
          if(this.yandex){
              let prompt = this.alertCtrl.create({
@@ -68,6 +71,9 @@ import { AlertController } from 'ionic-angular';
          }
      }
 
+     /**
+     * Utility function to prompt user to enter Bing client id and client secret if user wants to activate Bing Translation Service
+     */
      changeBing(){
          if(this.bing){
              
@@ -108,7 +114,9 @@ import { AlertController } from 'ionic-angular';
          }
      }
 
-
+     /**
+     * Utility function to prompt user to enter Google key if user wants to activate Google Translation Service
+     */
      changeGoogle(){
          if(this.google){
              

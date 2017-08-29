@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Blacklist } from '../blacklist/blacklist';
-import { Translation } from '../translation/translation';
-import { Backup } from '../backup/backup';
-import { Learning } from '../learning/learning';
-import { Advanced } from '../advanced/advanced';
+import { BlacklistPage } from '../blacklist/blacklist';
+import { TranslationPage } from '../translation/translation';
+import { BackupPage } from '../backup/backup';
+import { LearningPage } from '../learning/learning';
+import { AdvancedPage } from '../advanced/advanced';
 
 
 /**
  * Generated class for the Settings page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page contains options for the several settings options
  */
 
  @Component({
@@ -21,23 +20,27 @@ import { Advanced } from '../advanced/advanced';
  })
  export class SettingsPage {
 
+     /**
+     * Contains list of Pages where the user will navigate according to his selection
+     */
      menuItems = [];
+
      constructor(public navCtrl: NavController, public navParams: NavParams) {
          this.menuItems = [{
              'name':'Translation',
-             'page': Translation
+             'page': TranslationPage
          },{
              'name':'Blacklist',
-             'page': Blacklist
+             'page': BlacklistPage
          },{
              'name':'Learning',
-             'page': Learning
+             'page': LearningPage
          },{
              'name':'Backup',
-             'page': Backup
+             'page': BackupPage
          },{
-             'name':'Advanced',
-             'page': Advanced
+             'name':'AdvancedPage',
+             'page': AdvancedPage
          }];
      }
 
@@ -45,6 +48,10 @@ import { Advanced } from '../advanced/advanced';
          console.log('ionViewDidLoad Settings');
      }
 
+     /**
+     * Navigates based on the option selected by user
+     * @param {Page} page The Page where the user wants to navigate
+     */
      openPage(page){
          this.navCtrl.push(page);
      }

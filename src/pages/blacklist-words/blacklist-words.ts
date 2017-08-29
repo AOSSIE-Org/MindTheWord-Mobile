@@ -6,8 +6,7 @@ import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the BlacklistWords page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page displays a list of all words which have been blacklisted
  */
 
  @Component({
@@ -23,7 +22,9 @@ import { AlertController } from 'ionic-angular';
          console.log('ionViewDidLoad BlacklistWords');
      }
 
-
+     /**
+     * Opens a dialog box to prompt user to enter new word adds to the blacklist words list
+     */
      add(){
          let prompt = this.alertCtrl.create({
              title: 'New Blacklist Word',

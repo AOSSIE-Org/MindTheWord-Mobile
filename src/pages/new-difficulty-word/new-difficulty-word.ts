@@ -5,8 +5,8 @@ import { OptionsController } from '../../providers/options';
 /**
  * Generated class for the NewDifficultyWord page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This pages contains inputs for user to enter new difficulty word and select the level for it 
+
  */
 
  @Component({
@@ -23,6 +23,9 @@ import { OptionsController } from '../../providers/options';
          console.log('ionViewDidLoad NewDifficultyWord');
      }
 
+     /**
+     * Wrapper function to add word to difficulty bucket 
+     */
      add(){
          this.opctrl.addWordToDifficultyBucket();
          this.navCtrl.pop();

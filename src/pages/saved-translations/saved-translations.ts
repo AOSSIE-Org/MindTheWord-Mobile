@@ -6,8 +6,7 @@ import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the SavedTranslations page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page displays a list of all saved translations by the user
  */
 
  @Component({
@@ -23,7 +22,9 @@ import { AlertController } from 'ionic-angular';
          console.log('ionViewDidLoad SavedTranslations');
      }
 
-
+     /**
+     * Opens a dialog box to prompt user to enter new saved translation word and adds to the list
+     */
      add(){
          let prompt = this.alertCtrl.create({
              title: 'New Saved Translation',

@@ -6,8 +6,8 @@ import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the LearntWords page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page displays a list of all words learnt by the user
+
  */
 
  @Component({
@@ -24,6 +24,9 @@ import { AlertController } from 'ionic-angular';
          console.log('ionViewDidLoad LearntWords');
      }
 
+     /**
+     * Opens a dialog box to prompt user to enter new learnt word and adds to the learnt words list
+     */
      add(){
          let prompt = this.alertCtrl.create({
              title: 'New Learnt Word',

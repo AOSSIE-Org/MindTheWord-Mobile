@@ -5,8 +5,6 @@ import { OptionsController } from '../../providers/options';
 /**
  * Generated class for the PlaybackSettings page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
  */
 
  @Component({
@@ -15,9 +13,24 @@ import { OptionsController } from '../../providers/options';
  })
  export class PlaybackSettings {
 
+ 	/**
+	* List of all voices supported by TTS (currently unsupported)
+ 	*/
  	voices:any;
+
+ 	/**
+	* Volume of the TTS speaker
+ 	*/
  	volume:any;
+
+ 	/**
+	* Rate of the TTS speaker
+ 	*/
  	rate:any;
+
+ 	/**
+	* Pitch of the TTS speaker
+ 	*/
  	pitch:any;
 
  	constructor(public navCtrl: NavController, public navParams: NavParams,public opctrl:OptionsController) {
@@ -117,6 +130,9 @@ import { OptionsController } from '../../providers/options';
  		console.log('ionViewDidLoad PlaybackSettings');
  	}
 
+ 	/**
+	* Utility function to update the values on click and not on change as it would cause several network requests
+ 	*/
  	changePlaybackOptions(){
  		this.opctrl.volume = this.volume / 10;
  		this.opctrl.rate = this.rate / 10;

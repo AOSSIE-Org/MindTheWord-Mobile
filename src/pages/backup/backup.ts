@@ -9,19 +9,16 @@ import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the Backup page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page contains options for backup, restore and other reset options
  */
 
  @Component({
      selector: 'page-backup',
      templateUrl: 'backup.html',
  })
- export class Backup {
+ export class BackupPage {
 
      @ViewChild('fileInput') fileInput:ElementRef;
-     element:any;
-     file:any;
 
      constructor(public platform:Platform,public navCtrl: NavController, public navParams: NavParams,public opctrl:OptionsController,private androidPermissions: AndroidPermissions,public alertCtrl: AlertController) {
          localStorage.setItem('hasPermission','false');
@@ -30,7 +27,6 @@ import { AlertController } from 'ionic-angular';
 
      ionViewDidLoad() {
          var $this = this;
-         console.log('ionViewDidLoad Backup');
          this.fileInput.nativeElement.addEventListener('change', (e) => {
              // console.log(this.fileInput);
              let file = this.fileInput.nativeElement.files[0];
@@ -62,11 +58,16 @@ import { AlertController } from 'ionic-angular';
          });
      }
 
-     back(){
-         console.log(2);
+     /**
+     * Wrapper for [backupAll]{@link OptionsController} function 
+     */
+     backup(){
          this.opctrl.backupAll();
      }
 
+     /**
+     * Triggers the restore button incase file permission is granted
+     */
      restore(){
          if(JSON.parse(localStorage.getItem('hasPermission'))==true)
              this.fileInput.nativeElement.click();
@@ -75,6 +76,9 @@ import { AlertController } from 'ionic-angular';
      }
 
 
+     /**
+     * Opens dialog box to confirm if user wants to reset the configuration
+     */
      resetConfig(){
          var $this  = this;
          this.showAlert('Reset Configuration','Are you sure you want to reset all the data. Please create a backup if you want to restore your data in the future.',function(){
@@ -82,6 +86,9 @@ import { AlertController } from 'ionic-angular';
          });
      }
 
+     /**
+     * Opens dialog box to confirm if user wants to delete keys
+     */
      deleteKeys(){
          var $this  = this;
          this.showAlert('Delete Keys','>Are you sure you want to remove all the keys. Please create a backup if you want to restore your keys in the future.This action is irreversible',function(){
@@ -89,6 +96,9 @@ import { AlertController } from 'ionic-angular';
          });
      }
 
+     /**
+     * Checks the permission for file reading and requests incase permission is not granted
+     */
      requestPermission(){
          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then(
              success =>{
@@ -97,8 +107,13 @@ import { AlertController } from 'ionic-angular';
              error=>{localStorage.setItem('hasPermission','false');console.log(error)})
      }
      
-     
-     showAlert(title,message,toExecute) {
+     /**
+     * Utility function to open dialog box while resetting and deleting keys
+     * @param {string} title Title of the dialog box
+     * @param {string} message Message to be displayed in the dialog box
+     * @param {Function} toExecute Function to execute after user agrees
+     */
+     showAlert(title:string,message:string,toExecute: Function) {
          let confirm = this.alertCtrl.create({
              title: title,
              message: message,

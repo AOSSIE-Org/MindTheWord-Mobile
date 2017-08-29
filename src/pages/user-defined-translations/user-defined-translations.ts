@@ -7,8 +7,8 @@ import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the UserDefinedTranslations page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * This page displays a list of all user defined translations
+
  */
 
  @Component({
@@ -25,7 +25,9 @@ import { AlertController } from 'ionic-angular';
      }
 
 
-
+     /**
+     * Opens a dialog box to prompt user to enter custom translation and adds to the list
+     */
      add(){
          let prompt = this.alertCtrl.create({
              title: 'New User Defined Translation',
